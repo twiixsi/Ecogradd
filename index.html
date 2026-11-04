@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭКОГРАД: Хранители энергии — Стань хранителем энергии!</title>
+    <meta name="description" content="Интерактивная развивающая игра для дошкольников 4-7 лет по энергосбережению и экологии. Помоги Лучику спасти Экоград!">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2344A759' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         HERO SCENE (MEADOWBELL VISUAL PHILOSOPHY)
+         ========================================================================== -->
+    <header class="hero-section" id="hero">
+        
+        <!-- Background Landscape Layers -->
+        <div class="hero-bg-container">
+            <img id="hero-bg-img" class="hero-bg-img" src="assets/backgrounds/hero_background.jpg" alt="Волшебный мир Экограда">
+        </div>
+
+        <!-- Atmospheric Floating Overlays -->
+        <div class="hero-atmosphere">
+            <div class="cloud-drifter cloud-1"></div>
+            <div class="cloud-drifter cloud-2"></div>
+            <div class="sunbeam"></div>
+        </div>
+
+        <!-- Site Header & Navigation -->
+        <div class="site-header">
+            <!-- Logo -->
+            <a href="#hero" class="logo">
+                <svg class="logo-leaf" viewBox="0 0 24 24">
+                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                </svg>
+                <span class="logo-text">ЭКОГРАД</span>
+            </a>
+
+            <!-- Floating Translucent Navigation Pill -->
+            <nav class="nav-pill">
+                <a href="#hero" class="nav-link active">Главная</a>
+                <a href="#adventures" class="nav-link">Приключения</a>
+                <a href="#rewards" class="nav-link">Награды</a>
+                <a href="#about" class="nav-link">О проекте</a>
+            </nav>
+
+            <!-- Header Actions: Music & SFX Controls + Play Button -->
+            <div class="header-actions">
+                <div class="audio-controls">
+                    <button id="toggle-music-btn" class="audio-btn" title="Музыка фоном">
+                        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    </button>
+                    <button id="toggle-sfx-btn" class="audio-btn" title="Звуки игры">
+                        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+                    </button>
+                </div>
+                <button id="nav-play-btn" class="btn-white-pill" onclick="window.ecogradApp.scrollToAdventures()">
+                    <span>Начать играть</span>
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Hero Text Overlay -->
+        <div class="hero-content">
+            <span class="hero-kicker">ВОЛШЕБНЫЙ МИР ЭНЕРГОСБЕРЕЖЕНИЯ</span>
+            <h1 class="hero-headline">СТАНЬ ХРАНИТЕЛЕМ
+ЭНЕРГИИ!</h1>
+            <p class="hero-subheading">Помоги Лучику спасти Экоград! Играй, исследуй, береги природу и собирай волшебные награды!</p>
+            <div class="hero-buttons">
+                <button id="hero-start-btn" class="btn-primary" onclick="window.ecogradApp.scrollToAdventures()">
+                    <span>Начать приключение</span>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6z"/></svg>
+                </button>
+                <button id="hero-tutorial-btn" class="btn-secondary">
+                    <span>Как играть?</span>
+                    <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Character — Лучик (Golden-Orange Fox Mascot, high contrast!) -->
+        <div class="hero-character-wrap" id="hero-character">
+            <div class="character-speech-bubble" id="character-speech">
+                Привет! Я Лучик! Нажми на меня!
+            </div>
+            <img id="hero-luchik-img" class="hero-luchik-img" src="assets/characters/luchik_welcoming.png" alt="Лисенок Лучик">
+        </div>
+
+        <!-- Living City Status Bar -->
+        <div class="city-status-bar">
+            <img id="city-status-thumb" class="city-status-thumb" src="assets/backgrounds/hero_background.jpg" alt="Миниатюра Экограда">
+            <div class="city-status-info">
+                <div class="city-status-title">Экоград восстанавливается</div>
+                <div class="city-status-desc">Спасённая энергия: <span id="city-meter-percent">0%</span></div>
+                <div class="city-meter">
+                    <div id="city-meter-fill" class="city-meter-fill"></div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- ==========================================================================
+         PAGE CONTENT WRAPPER WITH INTERESTING NATURE BACKGROUND
+         ========================================================================== -->
+    <div class="page-content-wrapper">
+
+        <!-- ==========================================================================
+             ADVENTURES SECTION — THREE GAME CARDS
+             ========================================================================== -->
+        <section class="adventures-section" id="adventures">
+            <div class="section-header">
+                <h2 class="section-title">ТВОИ ПРИКЛЮЧЕНИЯ</h2>
+                <p class="section-subtitle">Три увлекательных испытания ждут тебя!</p>
+            </div>
+
+            <!-- Score & Crystal Tracker Banner -->
+            <div class="crystal-tracker-banner">
+                <div class="tracker-item">
+                    <svg class="crystal-icon-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="cryst-left" x1="5" y1="9" x2="16" y2="29" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#3FA656"/>
+                                <stop offset="100%" stop-color="#146029"/>
+                            </linearGradient>
+                            <linearGradient id="cryst-right" x1="27" y1="9" x2="16" y2="29" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#72E884"/>
+                                <stop offset="100%" stop-color="#238C40"/>
+                            </linearGradient>
+                            <linearGradient id="cryst-top-l" x1="16" y1="3" x2="7" y2="10" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#EAFFF0"/>
+                                <stop offset="100%" stop-color="#82F590"/>
+                            </linearGradient>
+                            <linearGradient id="cryst-top-r" x1="16" y1="3" x2="25" y2="10" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#FFF8B8"/>
+                                <stop offset="100%" stop-color="#5FE276"/>
+                            </linearGradient>
+                            <linearGradient id="cryst-mid" x1="16" y1="9" x2="16" y2="27" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#B3FFBC"/>
+                                <stop offset="50%" stop-color="#47D96A"/>
+                                <stop offset="100%" stop-color="#157B34"/>
+                            </linearGradient>
+                            <filter id="cryst-glow-fx" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#2EA043" flood-opacity="0.5"/>
+                            </filter>
+                        </defs>
+                        <g filter="url(#cryst-glow-fx)">
+                            <polygon points="16,3 7,9 5,16 16,29" fill="url(#cryst-left)"/>
+                            <polygon points="16,3 25,9 27,16 16,29" fill="url(#cryst-right)"/>
+                            <polygon points="16,3 7,9 11,15 16,9" fill="url(#cryst-top-l)"/>
+                            <polygon points="16,3 25,9 21,15 16,9" fill="url(#cryst-top-r)"/>
+                            <polygon points="16,9 21,15 16,27 11,15" fill="url(#cryst-mid)"/>
+                            <polygon points="7,9 11,15 16,27 5,16" fill="url(#cryst-left)" opacity="0.6"/>
+                            <path d="M16 4 L24 9.5" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.95"/>
+                            <circle cx="21" cy="7" r="1.5" fill="#FFFFFF"/>
+                            <path d="M21 4.5 V9.5 M18.5 7 H23.5" stroke="#FFFFFF" stroke-width="0.8" stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                    <span>Энергия: <strong id="total-points-display">0</strong> / 450</span>
+                </div>
+                <div class="tracker-item">
+                    <span>Значки: <strong id="total-badges-display">0 / 3</strong></span>
+                </div>
+                <button class="btn-white-pill" style="padding: 6px 16px; font-size: 13px;" onclick="window.ecogradApp.resetProgress()">
+                    Сбросить
+                </button>
+            </div>
+
+            <!-- Three Game Cards -->
+            <div class="cards-grid">
+                
+                <!-- Card 1 -->
+                <article class="adventure-card" id="card-game-1">
+                    <div class="card-img-wrap">
+                        <img class="card-artwork" src="assets/cards/card_game1.jpg" alt="Спаси энергию">
+                        <span class="card-status-badge badge-open">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6z"/></svg>
+                            Доступно
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">«Спаси энергию!»</h3>
+                        <p class="card-desc">Найди в комнатах домика, где зря тратятся вода, свет и драгоценное тепло!</p>
+                        <div class="card-action">
+                            <span class="card-points-tag">до 100 энергии</span>
+                            <button class="btn-card-play">Начать игру</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 (Detailed Fairytale Eco House Card) -->
+                <article class="adventure-card locked" id="card-game-2">
+                    <div class="card-img-wrap">
+                        <img class="card-artwork" src="assets/cards/card_game2.jpg" alt="Собери энергоумный дом">
+                        <span class="card-status-badge badge-locked">
+                            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            Заблокировано
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">«Собери энергоумный дом»</h3>
+                        <p class="card-desc">Установи солнечные батареи, умные лампочки, утепли дверь и построй дом будущего!</p>
+                        <div class="card-action">
+                            <span class="card-points-tag">до 150 энергии</span>
+                            <button class="btn-card-play">Пройди игру 1</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="adventure-card locked" id="card-game-3">
+                    <div class="card-img-wrap">
+                        <img class="card-artwork" src="assets/cards/card_game3.jpg" alt="Путешествие по Экограду">
+                        <span class="card-status-badge badge-locked">
+                            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            Заблокировано
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">«Путешествие по Экограду»</h3>
+                        <p class="card-desc">Отправляйся на интерактивную карту города, помоги зверятам и реши экологические задачки!</p>
+                        <div class="card-action">
+                            <span class="card-points-tag">до 200 энергии</span>
+                            <button class="btn-card-play">Пройди игру 2</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             REWARDS SECTION — THREE DETAILED BADGES
+             ========================================================================== -->
+        <section class="rewards-section" id="rewards">
+            <div class="section-header">
+                <h2 class="section-title">МОИ НАГРАДЫ</h2>
+                <p class="section-subtitle">Собери все почётные значки Хранителя энергии!</p>
+            </div>
+
+            <div class="rewards-card-container">
+                <div class="badges-grid">
+                    
+                    <!-- Badge 1 -->
+                    <div class="badge-box locked" id="badge-box-1">
+                        <img class="badge-icon-img" src="assets/badges/badge_rescuer.png" alt="Значок Юный спасатель">
+                        <h3 class="badge-name">Юный спасатель</h3>
+                        <p class="badge-desc">Вручается за бережное отношение к свету, воде и теплу в первой игре.</p>
+                        <span class="badge-status-tag tag-locked">Не открыто</span>
+                    </div>
+
+                    <!-- Badge 2 -->
+                    <div class="badge-box locked" id="badge-box-2">
+                        <img class="badge-icon-img" src="assets/badges/badge_master.png" alt="Значок Мастер экономии">
+                        <h3 class="badge-name">Мастер экономии</h3>
+                        <p class="badge-desc">Вручается великому архитектору за строительство Энергоумного дома.</p>
+                        <span class="badge-status-tag tag-locked">Не открыто</span>
+                    </div>
+
+                    <!-- Badge 3 -->
+                    <div class="badge-box locked" id="badge-box-3">
+                        <img class="badge-icon-img" src="assets/badges/badge_guardian.png" alt="Значок Главный Хранитель энергии">
+                        <h3 class="badge-name">Хранитель энергии</h3>
+                        <p class="badge-desc">Высшая награда за спасение всех жителей и полное преображение Экограда!</p>
+                        <span class="badge-status-tag tag-locked">Не открыто</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             ABOUT & ECO-TIPS SECTION
+             ========================================================================== -->
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <h2 class="section-title">О ПРОЕКТЕ</h2>
+                <p class="section-subtitle">Учимся беречь природу вместе с Лучиком</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-box">
+                    <h3>Добро пожаловать в Экоград!</h3>
+                    <p><strong>Экоград</strong> — это сказочный город гармонии технологий и чистой природы. Здесь весело крутятся ветрячки, крыши домов улавливают солнечные лучи, а в прозрачных речках плещутся рыбки.</p>
+                    <p>Когда жители забывают выключать свет или закрывать краны, город теряет свои яркие краски. Наш герой, лисёнок Лучик, приглашает маленьких первооткрывателей научиться простым и важным правилам энергосбережения!</p>
+                </div>
+
+                <div class="about-box">
+                    <h3>Памятка Хранителя энергии:</h3>
+                    <ul class="tips-list">
+                        <li><strong>Выключай свет</strong>, когда выходишь из комнаты или когда на улице ярко светит солнце.</li>
+                        <li><strong>Закрывай кран</strong> плотно — не давай чистой водичке капать зря!</li>
+                        <li><strong>Береги тепло</strong>: проветривай комнату быстро и закрывай форточку, чтобы не греть улицу.</li>
+                        <li><strong>Вынимай зарядки и выключай приборы</strong> на ночь.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ==========================================================================
+         FOOTER
+         ========================================================================== -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">ЭКОГРАД: Хранители энергии</div>
+            <p class="footer-copy">Интерактивный образовательный сайт для детей дошкольного возраста. Учимся беречь энергию играя!</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         MODAL 1: TUTORIAL (КАК ИГРАТЬ?)
+         ========================================================================== -->
+    <div class="modal-overlay" id="modal-tutorial">
+        <div class="modal-window">
+            <button class="modal-close-btn">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Как играть?</h2>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 24px; flex-wrap: wrap;">
+                    <img src="assets/characters/luchik_explaining.png" alt="Лучик объясняет" style="width: 130px; height: auto;">
+                    <div style="flex: 1; min-width: 260px;">
+                        <h3 style="font-family:'Grandstander'; font-size:22px; color:#2F593E; margin-bottom:8px;">Привет, будущий Хранитель!</h3>
+                        <p style="font-size:15.5px; color:#4E6D56; line-height:1.5;">Я расскажу тебе, как вернуть Экограду силу и яркие краски! Тебя ждут 3 увлекательных приключения:</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+                    <div style="background:#F6FBF7; padding:20px; border-radius:20px; border:2px solid #E2F0DE;">
+                        <h4 style="font-family:'Grandstander'; font-size:18px; color:#2F593E; margin-bottom:6px;">1. Спаси энергию</h4>
+                        <p style="font-size:14px; color:#5D7C65;">Заходи в гостиную, кухню и спальню. Нажимай на светящиеся кнопки, чтобы выключить лишний свет и закрыть текущий кран!</p>
+                    </div>
+
+                    <div style="background:#F6FBF7; padding:20px; border-radius:20px; border:2px solid #E2F0DE;">
+                        <h4 style="font-family:'Grandstander'; font-size:18px; color:#2F593E; margin-bottom:6px;">2. Собери умный дом</h4>
+                        <p style="font-size:14px; color:#5D7C65;">Перетаскивай солнечные панели, ветряк и утеплённую дверь на правильные места домика!</p>
+                    </div>
+
+                    <div style="background:#F6FBF7; padding:20px; border-radius:20px; border:2px solid #E2F0DE;">
+                        <h4 style="font-family:'Grandstander'; font-size:18px; color:#2F593E; margin-bottom:6px;">3. Путешествие по карте</h4>
+                        <p style="font-size:14px; color:#5D7C65;">Выбирай метки на карте, помогай жителям Экограда и отвечай на добрые экологические вопросы!</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 26px;">
+                    <button class="btn-primary" onclick="window.ecogradApp.closeAllModals(); window.ecogradApp.openGame(1);">
+                        <span>Всё понятно, начнём!</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL 2: GAME 1 — СПАСИ ЭНЕРГИЮ! (QUESTION BASED PER ITEM)
+         ========================================================================== -->
+    <div class="modal-overlay" id="modal-game1">
+        <div class="modal-window modal-game1-window">
+            <button class="modal-close-btn">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Игра 1: Спаси энергию!</h2>
+            </div>
+            <div class="modal-body">
+                
+                <div class="game1-hud">
+                    <div class="room-tabs">
+                        <button class="room-tab active" data-room="1">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.1 0-2 .9-2 2v5h1.33L4 21h2l.67-2h10.67l.66 2h2l.67-2H22v-5c0-1.1-.9-2-2-2zm-9 0H6V7h5v3zm7 0h-5V7h5v3z"/></svg>
+                            Гостиная
+                        </button>
+                        <button class="room-tab" data-room="2">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 16H6V8h12v12z"/></svg>
+                            Кухня
+                        </button>
+                        <button class="room-tab" data-room="3">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+                            Спальня
+                        </button>
+                    </div>
+                    <div class="room-counter-pill" id="room-counter-pill">
+                        Осталось заданий: <span id="room-remaining-num">2</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Game Stage -->
+                <div class="game-stage-wrap" id="game1-stage-wrap">
+                    <img id="game1-room-bg" class="room-bg-image" src="assets/games/game1/livingroom_problem.jpg" alt="Комната">
+
+                    <!-- Simple Interactive Buttons beside items:
+                         Room 1 (Living Room): Lamp (top: 52%, left: 35%), TV (top: 48%, left: 78%) -->
+                    <button class="room-item-btn" data-room="1" data-item="lamp1" style="top: 38%; left: 48%;">
+                        <span class="room-btn-dot"></span>
+                    </button>
+                    <button class="room-item-btn" data-room="1" data-item="tv1" style="top: 48%; left: 78%;">
+                        <span class="room-btn-dot"></span>
+                    </button>
+
+                    <!-- Room 2 (Kitchen): Fridge (top: 52%, left: 22%), Faucet (top: 58%, left: 49%) -->
+                    <button class="room-item-btn" data-room="2" data-item="fridge2" style="top: 52%; left: 22%; display: none;">
+                        <span class="room-btn-dot"></span>
+                    </button>
+                    <button class="room-item-btn" data-room="2" data-item="faucet2" style="top: 58%; left: 49%; display: none;">
+                        <span class="room-btn-dot"></span>
+                    </button>
+
+                    <!-- Room 3 (Bedroom): Window/Radiator (top: 36%, left: 52%), Bedside Light (top: 62%, left: 74%) -->
+                    <button class="room-item-btn" data-room="3" data-item="window3" style="top: 36%; left: 52%; display: none;">
+                        <span class="room-btn-dot"></span>
+                    </button>
+                    <button class="room-item-btn" data-room="3" data-item="bedlamp3" style="top: 62%; left: 74%; display: none;">
+                        <span class="room-btn-dot"></span>
+                    </button>
+
+                    <!-- Fox Companion in Game 1 -->
+                    <div class="game-luchik-companion">
+                        <img class="companion-fox-img" id="game1-fox-img" src="assets/characters/luchik_happy.png" alt="Лучик">
+                        <div class="companion-bubble" id="game1-companion-bubble">
+                            Нажимай на кнопки рядом с предметами и отвечай на вопросы!
+                        </div>
+                    </div>
+
+                    <!-- Question Dialog Overlay for Game 1 -->
+                    <div class="game1-question-overlay" id="game1-question-overlay" style="display: none;">
+                        <div class="question-dialog-card">
+                            <div class="question-dialog-header">
+                                <span class="question-item-tag" id="game1-q-tag">Задание</span>
+                                <span class="question-counter-badge" id="game1-q-counter">Вопрос 1 из 2</span>
+                            </div>
+                            <h3 class="question-title-text" id="game1-q-text">Вопрос загружается...</h3>
+                            <div class="question-options-list" id="game1-q-options">
+                                <!-- Options populated dynamically -->
+                            </div>
+                            <div class="question-feedback-box" id="game1-q-feedback" style="display: none;">
+                                <img src="assets/characters/luchik_explaining.png" class="feedback-fox-avatar" id="game1-q-fox" alt="Лучик">
+                                <div class="feedback-body">
+                                    <p class="feedback-msg" id="game1-q-msg"></p>
+                                    <button class="btn-primary btn-next-q" id="game1-q-next-btn">Следующий вопрос</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Success Popup Modal -->
+                    <div class="room-success-overlay" id="game1-room-success-overlay" style="display: none;">
+                        <div class="room-success-card">
+                            <div class="room-success-glow"></div>
+                            <h2 class="room-success-title" id="room-success-title">УРА! ТЫ СПРАВИЛСЯ!</h2>
+                            <p class="room-success-desc" id="room-success-desc">Ты помог жителям комнаты экономить энергию!</p>
+                            <div class="room-success-visual">
+                                <img id="room-success-thumb" class="room-success-thumb" src="assets/games/game1/livingroom_fixed_all.jpg" alt="Исправленная комната">
+                                <img class="room-success-fox" src="assets/characters/luchik_celebrating.png" alt="Лучик празднует">
+                            </div>
+                            <button class="btn-primary" id="room-success-next-btn">
+                                <span id="room-success-btn-text">Следующая комната</span>
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL 3: GAME 2 — СОБЕРИ ЭНЕРГОУМНЫЙ ДОМ (RENOVATION MECHANIC)
+         ========================================================================== -->
+    <div class="modal-overlay" id="modal-game2">
+        <div class="modal-window modal-game2-window">
+            <button class="modal-close-btn">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Игра 2: Собери энергоумный дом</h2>
+            </div>
+            <div class="modal-body">
+                <p class="game-instruction-text">
+                    Перетащи эко-детали из нижней панели на повреждённые части дома или нажми на деталь, а затем на нужное место!
+                </p>
+
+                <div class="game2-board">
+                    <!-- Close-up storybook fairytale cottage illustration with seamless repair zones -->
+                    <div class="house-canvas-area" id="house-canvas-area">
+                        <img id="game2-house-bg" class="house-bg-img" src="assets/games/game2/house_base1.jpg" alt="Базовый домик">
+
+                        <!-- 1: Solar Panel on Roof (top: 14.3%, left: 32.0%, width: 15.3%, height: 28.6%) -->
+                        <div class="repair-slot" data-target="solar" style="top: 10.3%; left: 33.0%; width: 10.3%; height: 25.6%;">
+                            <div class="slot-installed-content"></div>
+                        </div>
+
+                        <!-- 2: Windmill in Yard (top: 29.9%, left: 72.3%, width: 20.5%, height: 46.8%) -->
+                        <div class="repair-slot" data-target="windmill" style="top: 25.9%; left: 65.3%; width: 18.5%; height: 46.8%;">
+                            <div class="slot-installed-content"></div>
+                        </div>
+
+                        <!-- 3: LED Bulb on Porch Lantern (top: 52.8%, left: 55.8%, width: 5.2%, height: 11.5%) -->
+                        <div class="repair-slot" data-target="bulb" style="top: 45.8%; left: 57.8%; width: 5.2%; height: 11.5%;">
+                            <div class="slot-installed-content"></div>
+                        </div>
+
+                        <!-- 4: Energy-Saving Window (top: 49.8%, left: 38.0%, width: 9.8%, height: 18.0%) -->
+                        <div class="repair-slot" data-target="window" style="top: 44.8%; left: 40.0%; width: 10%; height: 18.0%;">
+                            <div class="slot-installed-content"></div>
+                        </div>
+
+                        <!-- 5: Insulated Door (top: 48.7%, left: 48.9%, width: 6.5%, height: 24.5%) -->
+                        <div class="repair-slot" data-target="door" style="top: 43%; left: 49.8%; width: 9%; height: 25.5%;">
+                            <div class="slot-installed-content"></div>
+                        </div>
+
+                        <!-- 6: Water Faucet on Rain Barrel (top: 59.0%, left: 20.8%, width: 6.2%, height: 14.5%) -->
+                        <div class="repair-slot" data-target="faucet" style="top: 54.0%; left: 18.8%; width: 8.2%; height: 16.5%;">
+                            <div class="slot-installed-content"></div>
+                        </div>
+
+                        <!-- Fox Companion in Game 2 -->
+                        <div class="game-luchik-companion">
+                            <img class="companion-fox-img" id="game2-fox-img" src="assets/characters/luchik_happy.png" alt="Лучик">
+                            <div class="companion-bubble" id="game2-companion-bubble">
+                                Давай отремонтируем домик и сделаем его энергоумным!
+                            </div>
+                        </div>
+
+                        <!-- Game 2 Success Popup -->
+                        <div class="room-success-overlay" id="game2-success-overlay" style="display: none;">
+                            <div class="room-success-card">
+                                <div class="room-success-glow"></div>
+                                <h2 class="room-success-title">ДОМ БУДУЩЕГО ГОТОВ!</h2>
+                                <p class="room-success-desc">Ты преобразил домик в сказочный образец чистоты и энергоэффективности! Все жители Экограда в восторге!</p>
+                                <div class="room-success-visual">
+                                    <img class="room-success-thumb" src="assets/games/game2/house_base.jpg" alt="Отремонтированный дом">
+                                    <img class="room-success-fox" src="assets/characters/luchik_celebrating.png" alt="Лучик празднует">
+                                </div>
+                                <button class="btn-primary" id="game2-success-next-btn">
+                                    <span>К карте Экограда!</span>
+                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items Tray with 6 High-Detail Cards -->
+                    <div class="items-tray" id="game2-items-tray">
+                        <div class="draggable-item" draggable="true" data-item="door">
+                            <img class="item-thumb-img" src="assets/games/game2/item_door.png" alt="Дверь">
+                            <span class="item-name-tag">Новая дверь</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-item="window">
+                            <img class="item-thumb-img" src="assets/games/game2/item_window.png" alt="Окно">
+                            <span class="item-name-tag">Тёплое окно</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-item="bulb">
+                            <img class="item-thumb-img" src="assets/games/game2/item_bulb.png" alt="Лампочка">
+                            <span class="item-name-tag">LED-лампочка</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-item="solar">
+                            <img class="item-thumb-img" src="assets/games/game2/item_solar.png" alt="Панель">
+                            <span class="item-name-tag">Солнечная панель</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-item="faucet">
+                            <img class="item-thumb-img" src="assets/games/game2/item_faucet.png" alt="Кран">
+                            <span class="item-name-tag">Экономный кран</span>
+                        </div>
+                        <div class="draggable-item" draggable="true" data-item="windmill">
+                            <img class="item-thumb-img" src="assets/games/game2/item_windmill.png" alt="Ветряк">
+                            <span class="item-name-tag">Эко-ветряк</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL 4: GAME 3 — ПУТЕШЕСТВИЕ ПО ЭКОГРАДУ (15 QUESTIONS & ILLUSTRATED OPTIONS)
+         ========================================================================== -->
+    <div class="modal-overlay" id="modal-game3">
+        <div class="modal-window modal-game3-window">
+            <button class="modal-close-btn">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Игра 3: Путешествие по Экограду</h2>
+            </div>
+            <div class="modal-body">
+                <p class="game-instruction-text">
+                    Нажимай на круглые флажки на карте города и помоги зверятам решить экологические задачки!
+                </p>
+
+                <div class="map-adventure-wrap">
+                    <img class="map-bg-img" src="assets/games/game3/map.jpg" alt="Карта Экограда">
+
+                    <!-- 5 Locations matching the prompt:
+                         1. Солнечная поляна, 2. Лесная тропинка, 3. Река Чистюля, 4. Энергодом, 5. Парк будущего -->
+                    <div class="map-pin" data-location="bunny" style="top: 30%; left: 22%;">
+                        <div class="pin-bubble">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C9.5 2 7.5 4 7.5 6.5c0 1.8 1.1 3.4 2.7 4.1C6.9 11.8 4 14.5 4 18h16c0-3.5-2.9-6.2-6.2-7.4 1.6-.7 2.7-2.3 2.7-4.1C16.5 4 14.5 2 12 2zm-2 5c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm4 0c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"/></svg>
+                        </div>
+                        <span class="pin-title">Солнечная поляна</span>
+                    </div>
+
+                    <div class="map-pin" data-location="fountain" style="top: 48%; left: 50%;">
+                        <div class="pin-bubble">
+                            <svg viewBox="0 0 24 24"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8z"/></svg>
+                        </div>
+                        <span class="pin-title">Река Чистюля</span>
+                    </div>
+
+                    <div class="map-pin" data-location="school" style="top: 26%; left: 74%;">
+                        <div class="pin-bubble">
+                            <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+                        </div>
+                        <span class="pin-title">Энергодом</span>
+                    </div>
+
+                    <div class="map-pin" data-location="park" style="top: 72%; left: 32%;">
+                        <div class="pin-bubble">
+                            <svg viewBox="0 0 24 24"><path d="M10 21v-3.78c-3.41-.34-6-3.22-6-6.72 0-3.73 3.01-6.75 6.74-6.75.42 0 .84.04 1.26.12C12.87 2.14 14.77 1 17 1c3.31 0 6 2.69 6 6 0 .42-.04.84-.13 1.25 1.83 1.24 2.88 3.32 2.88 5.5 0 3.73-3.02 6.75-6.75 6.75H14v3.78c0 .67-.54 1.22-1.22 1.22h-1.56c-.68 0-1.22-.55-1.22-1.22z"/></svg>
+                        </div>
+                        <span class="pin-title">Лесная тропинка</span>
+                    </div>
+
+                    <div class="map-pin" data-location="bear" style="top: 50%; left: 82%;">
+                        <div class="pin-bubble">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3 7c.83 0 1.5.67 1.5 1.5S9.83 12 9 12s-1.5-.67-1.5-1.5S8.17 9 9 9zm6 0c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-3 8.5c-2.33 0-4.31-1.46-5.11-3.5h10.22c-.8 2.04-2.78 3.5-5.11 3.5z"/></svg>
+                        </div>
+                        <span class="pin-title">Парк будущего</span>
+                    </div>
+                </div>
+
+                <!-- Game 3 Quest Dialog Area -->
+                <div id="game3-quest-area">
+                    <div class="quest-placeholder-card">
+                        <img src="assets/characters/luchik_welcoming.png" class="quest-placeholder-fox" alt="Лучик">
+                        <p>Нажми на любой флажок на карте, чтобы получить задание от жителей Экограда!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL 5: FINAL CELEBRATION & PRINTABLE CERTIFICATE
+         ========================================================================== -->
+    <div class="modal-overlay" id="modal-celebration">
+        <div class="modal-window">
+            <button class="modal-close-btn">&times;</button>
+            <div class="celebration-content">
+                
+                <img class="celebration-fox" src="assets/characters/luchik_celebrating.png" alt="Лучик празднует">
+                
+                <h2 class="celebration-title">УРА! ТЫ СПАС ЭКОГРАД!</h2>
+                <p class="celebration-desc">
+                    Ты настоящий Главный Хранитель энергии! Благодаря твоей доброте и смекалке наш город снова сияет яркими красками, чистым воздухом и счастливыми жителями!
+                </p>
+
+                <!-- All 3 Detailed Badges -->
+                <div class="celebration-badges-row">
+                    <img class="celebration-badge-thumb" src="assets/badges/badge_rescuer.png" alt="Юный спасатель">
+                    <img class="celebration-badge-thumb" src="assets/badges/badge_master.png" alt="Мастер экономии">
+                    <img class="celebration-badge-thumb" src="assets/badges/badge_guardian.png" alt="Хранитель энергии">
+                </div>
+
+                <!-- Certificate Generator Box -->
+                <div class="certificate-generator-box">
+                    <h3 style="font-family:'Grandstander'; font-size:22px; color:#2E7D32; margin-bottom:8px;">
+                        Введи своё имя для именной грамоты:
+                    </h3>
+                    <input type="text" id="child-name-input" class="child-name-input" placeholder="Твоё имя (например: Артём или София)" value="Юный Хранитель">
+                    
+                    <!-- Printable Certificate Card -->
+                    <div class="printable-certificate">
+                        <div class="cert-title">ГРАМОТА</div>
+                        <div class="cert-subtitle">Почётный диплом волшебного города Экоград</div>
+                        <div class="cert-name" id="cert-player-name">Юный Хранитель</div>
+                        <div class="cert-body">
+                            Награждается за успешное прохождение трёх увлекательных приключений, спасение природных ресурсов и получение высшего почётного звания:<br>
+                            <strong style="font-size:20px; color:#2E7D32;">ГЛАВНЫЙ ХРАНИТЕЛЬ ЭНЕРГИИ</strong>
+                        </div>
+                        <div class="cert-footer">
+                            <div style="text-align: left;">
+                                <div style="font-weight: 700; color: #2F593E;">Дата: <span id="cert-date">3 ноября 2026 г.</span></div>
+                                <div style="font-size: 13px; color: #668870;">Город Экоград</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-family:'Grandstander'; font-size:18px; font-weight:800; color:#388E3C;">Лисенок Лучик</div>
+                                <div style="font-size: 13px; color: #668870;">Хранитель чистой планеты</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 22px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                        <button id="btn-print-cert" class="btn-primary">
+                            <span>Распечатать грамоту</span>
+                            <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                        </button>
+                        <button class="btn-secondary" onclick="window.ecogradApp.closeAllModals()">
+                            <span>Вернуться в Экоград</span>
+                            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
